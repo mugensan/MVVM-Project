@@ -64,6 +64,14 @@ class ListFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = listAdapter
         }
+        //fixing the bug of the refresh layout (hide spinner)
+        refresh_layout.setOnRefreshListener {
+            rv_animal_list.visibility = View.GONE
+            tv_list_error.visibility = View.VISIBLE
+            //hide spinner
+            viewModel.refresh()
+            refresh_layout.isRefreshing = false
+        }
 
         //test btn to move between fragments
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
