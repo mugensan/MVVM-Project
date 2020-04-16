@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //BACKARROW
+        //BACKARROW (lifecycle aware)
         navController = Navigation.findNavController(this,R.id.main_activity_fragment)
         NavigationUI.setupActionBarWithNavController(this,navController)
     }
