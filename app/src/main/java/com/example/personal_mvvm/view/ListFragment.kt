@@ -24,9 +24,9 @@ class ListFragment : Fragment() {
     //test btn to move between fragments
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_detail.setOnClickListener{
-            val action = ListFragmentDirections.actionGoToDetail()
-            Navigation.findNavController(it).navigate(action)
-        }
+//        btn_detail.setOnClickListener{
+//            val action = ListFragmentDirections.actionGoToDetail()
+//            Navigation.findNavController(it).navigate(action)
+//        }
     }
 }
