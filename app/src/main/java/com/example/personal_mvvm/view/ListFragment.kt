@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.personal_mvvm.R
-import com.example.personal_mvvm.models.Animal
+import com.example.personal_mvvm.models.animal.Animal
 import com.example.personal_mvvm.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -52,6 +52,7 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //store the list model and attaches it to the frag
+        //THIS IS WHERE WE ATTACH OUR MODEL -> MVVM STYLE!!! 1 VM PER VIEW AND 1 VIEW PER VM
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         //observe the liveData  (ej: MutableLiveData -> viewModel class)
         viewModel.animals.observe(this, animalListDataObserver)

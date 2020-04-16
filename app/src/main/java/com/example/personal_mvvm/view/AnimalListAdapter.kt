@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.personal_mvvm.R
-import com.example.personal_mvvm.models.Animal
+import com.example.personal_mvvm.models.animal.Animal
 import kotlinx.android.synthetic.main.items_animal.view.*
 
 class AnimalListAdapter (private val animalList:ArrayList<Animal>): RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder>(){

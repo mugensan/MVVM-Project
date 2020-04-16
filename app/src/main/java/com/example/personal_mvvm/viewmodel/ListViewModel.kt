@@ -3,7 +3,7 @@ package com.example.personal_mvvm.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.personal_mvvm.models.Animal
+import com.example.personal_mvvm.models.animal.Animal
 
 //exposing a series of liveData from the backend and our api will need a key
 class ListViewModel(application: Application):AndroidViewModel(application) {
