@@ -1,7 +1,8 @@
-package com.example.personal_mvvm
+package com.example.personal_mvvm.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.personal_mvvm.R
 
 class MainActivity : AppCompatActivity() {
 
