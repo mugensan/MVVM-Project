@@ -16,7 +16,7 @@ fun getProgressDrawable(context: Context):CircularProgressDrawable{
         start()
     }
 }
-//IMAGE WITH GLIDE
+//IMAGE WITH GLIDE (made on a bg Thread)
 fun ImageView.loadImage(uri:String?,progressDrawable: CircularProgressDrawable){
     //defining options variable
     val options = RequestOptions()

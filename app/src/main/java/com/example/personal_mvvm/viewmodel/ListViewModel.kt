@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.personal_mvvm.models.animal.Animal
 import com.example.personal_mvvm.models.animal.AnimalApiService
 import com.example.personal_mvvm.models.animal.ApiKey
+import com.example.personal_mvvm.models.util.SharedPreferencesHelper
 //import com.example.personal_mvvm.models.revolutmodel.BaseModel
 //import com.example.personal_mvvm.models.revolutmodel.RevolutApiService
 //import com.example.personal_mvvm.models.revolutmodel.BaseModel
@@ -33,68 +34,32 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private val apiAnimalService = AnimalApiService()
 //    private val apiRevolutService = RevolutApiService()
 
+    //PREFS
+    private val prefs = SharedPreferencesHelper(getApplication())
+    //avoid infinite loop for the key error (flag)
+    private var invalidApiKey = false
+
     //start the retrieval of the information of the backend
     //Test Mock Data
     fun refresh() {
         loading.value = true
-        getKey()
-
-//        getBase()
-//        getRates("EUR")
+        //avoiding the infinite loop (key->error), start with flag = false
+        invalidApiKey = false
+        //checking I have a key and if yes return the list
+        val key = prefs.getApiKey()
+        if(key.isNullOrEmpty()){
+            getKey()
+        }else{
+            getAnimals(key)
+        }
     }
 
-//
-//
-//    private fun getBase() {
-//        disposable.add(
-//            apiRevolutService.getBase()
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(object : DisposableSingleObserver<BaseModel>() {
-//                    override fun onSuccess(baseCurrency: BaseModel) {
-//                        if (baseCurrency.baseCurrency.isNullOrEmpty()) {
-//                            loadError.value = true
-//                            loading.value = false
-//                        } else {
-//                            getRates(baseCurrency.baseCurrency)
-//                        }
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        e.printStackTrace()
-//                        loading.value = false
-//                        loadError.value = true
-//                    }
-//
-//                }
-//                )
-//        )
-//    }
-//
-//    private fun getRates(base: String) {
-//        disposable.add(
-//            apiRevolutService.getRates("EUR")
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(object : DisposableSingleObserver<List<BaseModel>>() {
-//                    override fun onSuccess(t: List<BaseModel>) {
-//                        loadError.value = false
-//                        baseCurrency.value = t
-//                        loading.value = false
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        TODO("Not yet implemented")
-//                    }
-//
-//
-//                }
-//                )
-//        )
-//
-//    }
-//
-
+    //creating another refresh every time the screen get refreshed no need to get it from
+    //sharedPrefs, just getKey() function call in listFragment
+    fun hardRefresh(){
+        loading.value = true
+        getKey()
+    }
 
     private fun getKey() {
         disposable.add(
@@ -107,6 +72,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                             loadError.value = true
                             loading.value = false
                         } else {
+                            prefs.saveApiKey(key.key)
                             getAnimals(key.key)
                         }
                     }
@@ -136,10 +102,15 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                     }
 
                     override fun onError(e: Throwable) {
-                        e.printStackTrace()
-                        loading.value = false
-                        animals.value = null
-                        loadError.value = true
+                        if (!invalidApiKey) {
+                            invalidApiKey = true
+                            getKey()
+                        } else {
+                            e.printStackTrace()
+                            loading.value = false
+                            animals.value = null
+                            loadError.value = true
+                        }
                     }
 
                 })

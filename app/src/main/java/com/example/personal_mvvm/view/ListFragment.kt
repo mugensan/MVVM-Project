@@ -84,16 +84,9 @@ class ListFragment : Fragment() {
             rv_animal_list.visibility = View.GONE
             tv_list_error.visibility = View.VISIBLE
             //hide spinner
-            viewModel.refresh()
+            viewModel.hardRefresh()
             refresh_layout.isRefreshing = false
         }
 
-        //test btn to move between fragments
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        btn_detail.setOnClickListener{
-//            val action = ListFragmentDirections.actionGoToDetail()
-//            Navigation.findNavController(it).navigate(action)
-//        }
     }
 }
