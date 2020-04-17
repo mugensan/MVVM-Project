@@ -15,6 +15,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.personal_mvvm.R
 import com.example.personal_mvvm.databinding.FragmentDetailBinding
 import com.example.personal_mvvm.models.animal.Animal
+import com.example.personal_mvvm.models.animal.AnimalPalette
 import com.example.personal_mvvm.models.util.getProgressDrawable
 import com.example.personal_mvvm.models.util.loadImage
 
@@ -25,6 +26,7 @@ class DetailFragment : Fragment() {
 
     var animal: Animal? = null
     private lateinit var dataBinding: FragmentDetailBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +45,6 @@ class DetailFragment : Fragment() {
             animal = DetailFragmentArgs.fromBundle(it).animal
         }
 
-        //checking if image has context
-        context?.let {
-            dataBinding.ivAnimalImage.loadImage(animal?.imageUrl, getProgressDrawable(it))
-        }
 
         animal?.imageUrl?.let {
             setupBackgroudColor(it)
@@ -72,7 +70,8 @@ class DetailFragment : Fragment() {
                     Palette.from(resource)
                         .generate() { palette: Palette? ->
                             val intColor = palette?.lightMutedSwatch?.rgb ?: 0 // if color is null
-                            dataBinding.animalLayout.setBackgroundColor(intColor)
+                            //created a new data class in model + variable in xml
+                            dataBinding.palette = AnimalPalette(intColor)
                         }
                 }
 

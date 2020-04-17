@@ -8,23 +8,27 @@
     <data>
         <variable name="animal"
             type="com.example.personal_mvvm.models.animal.Animal" />
+        <variable
+            name="palette"
+            type="com.example.personal_mvvm.models.animal.AnimalPalette" />
     </data>
 
 
     <LinearLayout
-        android:id="@+id/animal_layout"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:background="@{palette.color}"
         android:padding="8dp"
         tools:context=".view.DetailFragment">
 
         <ImageView
-            android:id="@+id/iv_animal_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/animal_image"
+            android:imageUrl="@{animal.imageUrl}"
             android:minHeight="200dp"
             android:scaleType="center" />
 

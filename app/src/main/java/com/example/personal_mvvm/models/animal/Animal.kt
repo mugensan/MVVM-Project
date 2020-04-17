@@ -119,3 +119,6 @@ data class Speed(
         }
     }
 }
+
+//this class is for the binding of the backgroud
+data class AnimalPalette(var color:Int)
