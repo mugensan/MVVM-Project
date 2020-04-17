@@ -26,5 +26,8 @@
             app:destination="@id/listFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <argument
+            android:name="animal"
+            app:argType="com.example.personal_mvvm.models.animal.Animal" />
     </fragment>
 </navigation>
