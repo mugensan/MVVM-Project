@@ -1,24 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DetailFragment">
+    tools:context=".view.DetailFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="8dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/iv_animal_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:minHeight="200dp"
+        android:contentDescription="@string/animal_image"
+        />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_list"
+    <TextView
+        android:id="@+id/tv_animal_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@drawable/ic_list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        style="@style/Title"
+        android:layout_margin="8dp"
+        android:text="@string/animal_name" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_animal_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text"
+        android:layout_margin="8dp"
+        android:text="@string/animal_location" />
+
+    <TextView
+        android:id="@+id/tv_animal_lifeSpan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text"
+        android:layout_margin="8dp"
+        android:text="@string/animal_lifespan" />
+
+    <TextView
+        android:id="@+id/tv_animal_diet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Title"
+        android:layout_margin="8dp"
+        android:text="@string/animal_diet" />
+
+
+</LinearLayout>
