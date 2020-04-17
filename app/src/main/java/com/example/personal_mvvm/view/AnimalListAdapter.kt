@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.items_animal.view.*
 class AnimalListAdapter (private val animalList:ArrayList<Animal>): RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder>(){
     class AnimalViewHolder(var view: View):RecyclerView.ViewHolder(view)
 
+
     fun updateAnimalList(newAnimalList:List<Animal>){
         animalList.clear()
         animalList.addAll(newAnimalList)
