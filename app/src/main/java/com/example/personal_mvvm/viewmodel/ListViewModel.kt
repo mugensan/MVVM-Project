@@ -10,6 +10,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.personal_mvvm.di.DaggerViewModelComponent
 import com.example.personal_mvvm.di.diapp.AppModule
+import com.example.personal_mvvm.di.disharedpref.CONTEXT_APP
+import com.example.personal_mvvm.di.disharedpref.TypeOfContext
 import com.example.personal_mvvm.models.animal.Animal
 import com.example.personal_mvvm.models.animal.AnimalApiService
 import com.example.personal_mvvm.models.animal.ApiKey
@@ -18,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import retrofit2.http.Field
 import javax.inject.Inject
 
 //exposing a series of liveData from the backend and our api will need a key
@@ -38,6 +41,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     //PREFS
     @Inject
+    @field:TypeOfContext(CONTEXT_APP)
     lateinit var prefs :SharedPreferencesHelper
 
     //avoid infinite loop for the key error (flag)
