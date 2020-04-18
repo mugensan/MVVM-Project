@@ -26,6 +26,10 @@ import javax.inject.Inject
 //exposing a series of liveData from the backend and our api will need a key
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
+    constructor(application: Application,test:Boolean = true):this(application){
+        injected = true
+    }
+
     //d718b0a923bd5bca385968a6f81e2e18fddb992a
 
     //    val rates by lazy { MutableLiveData<List<BaseModel>>() }
@@ -35,6 +39,8 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     val loading by lazy { MutableLiveData<Boolean>() }
 
     private val disposable = CompositeDisposable()
+
+    private var injected = false
 
     @Inject
     lateinit var apiAnimalService: AnimalApiService
@@ -47,7 +53,8 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     //avoid infinite loop for the key error (flag)
     private var invalidApiKey = false
 
-        init {
+        fun inject() {
+            if(!injected)
             DaggerViewModelComponent.builder()
                 .appModule(AppModule(getApplication()))
                 .build()
@@ -57,6 +64,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     //start the retrieval of the information of the backend
     //Test Mock Data
     fun refresh() {
+        inject()
         loading.value = true
         //avoiding the infinite loop (key->error), start with flag = false
         invalidApiKey = false
@@ -72,6 +80,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     //creating another refresh every time the screen get refreshed no need to get it from
     //sharedPrefs, just getKey() function call in listFragment
     fun hardRefresh() {
+        inject()
         loading.value = true
         getKey()
     }

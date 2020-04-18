@@ -14,7 +14,7 @@ private val BASE_URL_ANIMAL = "https://us-central1-apis-4674e.cloudfunctions.net
 
 //this the class i want to inject
 @Module
-class ApiModule {
+open class ApiModule {
 
     @Provides
     fun provideAnimalApi():AnimalApi{
@@ -27,7 +27,7 @@ class ApiModule {
     }
 
     @Provides
-    fun provideAnimalApiService(): AnimalApiService{
+    open fun provideAnimalApiService(): AnimalApiService{
         return AnimalApiService()
     }
 }

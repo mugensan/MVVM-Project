@@ -8,13 +8,14 @@ import dagger.Provides
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
+//need to open the class for the mock tests
 @Module
-class PrefsModule {
+open class PrefsModule {
 
     @Provides
     @Singleton
     @TypeOfContext(CONTEXT_APP)
-    fun provideSharedPreferences(app:Application): SharedPreferencesHelper{
+    open fun provideSharedPreferences(app:Application): SharedPreferencesHelper{
         return SharedPreferencesHelper(app)
     }
 
