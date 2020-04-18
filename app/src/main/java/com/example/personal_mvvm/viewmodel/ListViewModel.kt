@@ -1,43 +1,54 @@
 package com.example.personal_mvvm.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.example.personal_mvvm.models.animal.Animal
-import com.example.personal_mvvm.models.animal.AnimalApiService
-import com.example.personal_mvvm.models.animal.ApiKey
-import com.example.personal_mvvm.models.util.SharedPreferencesHelper
 //import com.example.personal_mvvm.models.revolutmodel.BaseModel
 //import com.example.personal_mvvm.models.revolutmodel.RevolutApiService
 //import com.example.personal_mvvm.models.revolutmodel.BaseModel
 //import com.example.personal_mvvm.models.revolutmodel.Rates
 //import com.example.personal_mvvm.models.revolutmodel.RevolutApiService
-import io.reactivex.Single
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import com.example.personal_mvvm.di.DaggerViewModelComponent
+import com.example.personal_mvvm.di.diapp.AppModule
+import com.example.personal_mvvm.models.animal.Animal
+import com.example.personal_mvvm.models.animal.AnimalApiService
+import com.example.personal_mvvm.models.animal.ApiKey
+import com.example.personal_mvvm.models.util.SharedPreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import javax.inject.Inject
 
 //exposing a series of liveData from the backend and our api will need a key
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     //d718b0a923bd5bca385968a6f81e2e18fddb992a
 
-//    val rates by lazy { MutableLiveData<List<BaseModel>>() }
+    //    val rates by lazy { MutableLiveData<List<BaseModel>>() }
 //    val baseCurrency by lazy { MutableLiveData<List<BaseModel>>() }
     val animals by lazy { MutableLiveData<List<Animal>>() }
     val loadError by lazy { MutableLiveData<Boolean>() }
     val loading by lazy { MutableLiveData<Boolean>() }
 
     private val disposable = CompositeDisposable()
-    private val apiAnimalService = AnimalApiService()
-//    private val apiRevolutService = RevolutApiService()
+
+    @Inject
+    lateinit var apiAnimalService: AnimalApiService
 
     //PREFS
-    private val prefs = SharedPreferencesHelper(getApplication())
+    @Inject
+    lateinit var prefs :SharedPreferencesHelper
+
     //avoid infinite loop for the key error (flag)
     private var invalidApiKey = false
+
+        init {
+            DaggerViewModelComponent.builder()
+                .appModule(AppModule(getApplication()))
+                .build()
+                .inject(this)
+        }
 
     //start the retrieval of the information of the backend
     //Test Mock Data
@@ -47,16 +58,16 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         invalidApiKey = false
         //checking I have a key and if yes return the list
         val key = prefs.getApiKey()
-        if(key.isNullOrEmpty()){
+        if (key.isNullOrEmpty()) {
             getKey()
-        }else{
+        } else {
             getAnimals(key)
         }
     }
 
     //creating another refresh every time the screen get refreshed no need to get it from
     //sharedPrefs, just getKey() function call in listFragment
-    fun hardRefresh(){
+    fun hardRefresh() {
         loading.value = true
         getKey()
     }

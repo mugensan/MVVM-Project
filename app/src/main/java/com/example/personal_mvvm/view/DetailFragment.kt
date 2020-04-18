@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -18,6 +21,7 @@ import com.example.personal_mvvm.models.animal.Animal
 import com.example.personal_mvvm.models.animal.AnimalPalette
 import com.example.personal_mvvm.models.util.getProgressDrawable
 import com.example.personal_mvvm.models.util.loadImage
+import com.example.personal_mvvm.view.DetailFragmentDirections.actionGoToList
 
 /**
  * A simple [Fragment] subclass.
@@ -32,6 +36,8 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         //dataBinding -Inflate the layout for this fragment
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         return dataBinding.root
@@ -39,6 +45,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         //retreiving animal info
         arguments?.let {
