@@ -26,6 +26,8 @@ import javax.inject.Inject
 //exposing a series of liveData from the backend and our api will need a key
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
+    //instead of using the live app we create a test constructor
+    //called for the test (ListViewModuleTest -> app-> true)
     constructor(application: Application,test:Boolean = true):this(application){
         injected = true
     }
