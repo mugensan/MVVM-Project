@@ -1,9 +1,9 @@
-"Project using MVVM architecture
+Project using MVVM architecture
 - Navigation
 - Retrofit
 - Palette Library
 - DI
 - Unit Testing
 
-Have FUN! "
+Have FUN! 
 
